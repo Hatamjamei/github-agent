@@ -1,20 +1,13 @@
-from github import Github
-from dotenv import load_dotenv
 import os
+from github import Github
 
-load_dotenv()
-
-token = os.getenv("GITHUB_TOKEN")
-
-if not token:
-    print("❌ GITHUB_TOKEN پیدا نشد.")
-    exit()
+token = os.environ["AGENT_TOKEN"]
 
 g = Github(token)
 user = g.get_user()
 
-print(f"سلام {user.login}")
-print("مخزن‌های شما:")
+print(f"GitHub User: {user.login}")
 
+print("\nRepositories:")
 for repo in user.get_repos():
-    print("-", repo.full_name)
+    print(f"- {repo.full_name}")
